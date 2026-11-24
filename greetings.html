@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <title>Greet the world</title>
+    <script>
+    var dictionary = { "en": { "LangName": "English", "HappyBirthday": "Happy Birthday", "Congratulations": "Congratulations", "HappyHolidays": "Happy holidays" }, "ua": { "LangName": "Українська", "HappyBirthday": "З днем ародження", "Congratulations": "Вітаю", "HappyHolidays": "Зі святами" }, "cy": { "LangName": "Cymraeg", "HappyBirthday": "Pen-blwydd hapus", "Congratulations": "Llongyfarchiadau", "HappyHolidays": "Gwyliau hapus" }, "ja": { "LangName": "日本語", "HappyBirthday": "お誕生日おめでとう", "Congratulations": "おめでとう", "HappyHolidays": "楽しい休日を" }, "nl": { "LangName": "Nederlands", "HappyBirthday": "Gefeliciteerd met je verjaardag", "Congratulations": "Gefeliciteerd", "HappyHolidays": "Fijne feestdagen" }, "epo": { "LangName": "Esperanto", "HappyBirthday": "Feliĉan naskiĝtagon", "Congratulations": "Gratulojn", "HappyHolidays": "Feliĉajn feriojn" } };
+    </script>
+    <script>
+    function setUI( tSpans, newLang ) {
+        tSpans.forEach( function (elem) {
+            token = elem.getAttribute('data-UIToken');
+            elem.innerHTML = dictionary[newLang][token];
+        });
+    };
+    </script>
+    <script>
+        function makeUISelector( initial, selectorElem ) {
+            var options = '';
+            Object.keys(dictionary).forEach(function(key) {
+                isSel = key == initial ? ' selected' : '';
+                options = options +
+                    '<option value="' + key + '"' + isSel + '>' + dictionary[key]['LangName'] + '</option>';
+            });
+            selectorElem.innerHTML = options;
+        };
+    </script>
+    <script src="rFunctions.js"></script>
+    <script>
+        function rSetUI( tSpans, newLang ) {
+            tSpans.forEach( function (elem) {
+                token = elem.getAttribute('data-UIToken');
+                elem.innerHTML = rDictionary(newLang,token);
+            });
+        };
+    </script>
+    <script>
+    var defLang = 'en';
+    var uiselector;
+    var token_spans;
+    var ruiselector;
+    var rtoken_spans;
+    document.addEventListener('DOMContentLoaded', () => {
+        uiselector = document.getElementById('Elucid8_ui-switch-contents');
+        token_spans = document.querySelectorAll('.Elucid8-ui');
+        makeUISelector( defLang, uiselector );
+        setUI( token_spans, defLang );
+        uiselector.addEventListener('change', (event) => {
+            newLang = event.target.value;
+            setUI( token_spans, newLang );
+        });
+        ruiselector = document.getElementById('rElucid8_ui-switch-contents');
+        rtoken_spans = document.querySelectorAll('.r-Elucid8-ui');
+        makeUISelector( defLang, ruiselector );
+        rSetUI( rtoken_spans, defLang );
+        ruiselector.addEventListener('change', (event) => {
+            newLang = event.target.value;
+            rSetUI( rtoken_spans, newLang );
+        });
+    });
+    </script>
+</head>
+<body>
+<table>
+<tr><td>Greeting language</td>
+<td>Javascript: <select id="Elucid8_ui-switch-contents"></select></td>
+    <td>Raku: <select id="rElucid8_ui-switch-contents"></select></td>
+</tr>
+<tr><td>Greeting 1</td><td><span class="Elucid8-ui" data-uitoken="HappyBirthday">Greeting 1</span></td><td><span class="r-Elucid8-ui" data-uitoken="HappyBirthday">-</span></td></tr>
+    <tr><td>Greeting 2</td><td><span class="Elucid8-ui" data-uitoken="Congratulations">Greeting 2</span></td><td><span class="r-Elucid8-ui" data-uitoken="Congratulations">-</span></td></tr>
+    <tr><td>Greeting 3</td><td><span class="Elucid8-ui" data-uitoken="HappyHolidays">Greeting 3</span></td><td><span class="r-Elucid8-ui" data-uitoken="HappyHolidays">-</span></td></tr>
+</table>
+</body>
+
+</html>
