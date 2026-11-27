@@ -20,14 +20,18 @@ indent_mode=2
 [project]
 name=Advent2026_Articles
 base_path=/home/richard/Software/Articles/Advent2026_Articles
+description=
 
 [long line marker]
 long_line_behaviour=1
 long_line_column=72
 
 [files]
-current_page=0
-FILE_NAME_0=1953;HTML;0;EUTF-8;1;1;0;%2Fhome%2Frichard%2FSoftware%2FArticles%2FAdvent2026_Articles%2Fgreetings.html;0;4
+current_page=3
+FILE_NAME_0=2853;HTML;0;EUTF-8;1;1;0;%2Fhome%2Frichard%2FSoftware%2FArticles%2FAdvent2026_Articles%2Fgreetings.html;0;4
+FILE_NAME_1=1340;Raku;0;EUTF-8;1;1;0;%2Fhome%2Frichard%2FSoftware%2FArticles%2FAdvent2026_Articles%2Fr-functions.raku;0;4
+FILE_NAME_2=2213;Javascript;0;EUTF-8;1;1;0;%2Fhome%2Frichard%2FSoftware%2FArticles%2FAdvent2026_Articles%2FrFunctions.js;0;4
+FILE_NAME_3=12897;None;0;EUTF-8;1;1;0;%2Fhome%2Frichard%2FSoftware%2FArticles%2FAdvent2026_Articles%2FAdvent_greetings.rakudoc;0;4
 
 [VTE]
-last_dir=/home/richard/Documents/RakuFoundation/Articles
+last_dir=/home/richard/Software/Articles/Advent2026_Articles

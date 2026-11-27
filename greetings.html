@@ -26,7 +26,7 @@
             selectorElem.innerHTML = options;
         };
     </script>
-    <script src="https://raw.githubusercontent.com/finanalyst/Advent2026_Articles/refs/heads/main/rFunctions.js"></script>
+    <script src="rFunctions.js"></script>
     <script>
         function rSetUI( tSpans, newLang ) {
             tSpans.forEach( function (elem) {
@@ -51,18 +51,17 @@
             setUI( token_spans, newLang );
         });
         ruiselector = document.getElementById('rElucid8_ui-switch-contents');
-        rtoken_spans = document.querySelectorAll('.r-Elucid8-ui');
         makeUISelector( defLang, ruiselector );
-        rSetUI( rtoken_spans, defLang );
+        changeLang( defLang, '.r-Elucid8-ui');
         ruiselector.addEventListener('change', (event) => {
             newLang = event.target.value;
-            rSetUI( rtoken_spans, newLang );
+			changeLang( newLang, '.r-Elucid8-ui');
         });
     });
     </script>
 </head>
 <body>
-<table>
+<table style="border: medium groove black;">
 <tr><td>Greeting language</td>
 <td>Javascript: <select id="Elucid8_ui-switch-contents"></select></td>
     <td>Raku: <select id="rElucid8_ui-switch-contents"></select></td>
