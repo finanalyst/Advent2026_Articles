@@ -8,10 +8,10 @@
 =head Gifts this year
 
 Two talented Raku community members - Andrey Shitov and Tokuhiro Matsuno - have developed two new
-Raku compilers using Generative AI tools. Andrey's L«I<Raku++>| https://raku.online» compiles to C++ and Tahiro-san's L«I<mutsui>|https://tokuhirom.github.io/mutsu/»
-compiles to Rust. Since there are now transpilers from C++ and Rust to WASM (a language that works inside a browser), both compiler stacks offer a way to write Website functionality in Raku.
-I consider both Raku++ and mutsui to be amazing gifts to the Raku community this year, so thank you
-to both Andrey and Tahiro-san.
+Raku compilers using Generative AI tools. Andrey's L«I<Raku++>| https://raku.online» is written in C++ and Tokuhiro's L«I<mutsu>|https://tokuhirom.github.io/mutsu/»
+is written in Rust. Both offer ways to write Website functionality in Raku by clever leveraging of WASM. N<I believe that the original intent was for Rakudo to offer a similar sort of backend, but development of that initiative preceeded the work on WASM, and the run time model for Rakudo was inherently multi-threaded, while Javascript in a browser is robustly single-threaded. No doubt this will change>
+I consider both Raku++ and mutsu to be amazing gifts to the Raku community this year, so thank you
+to both Andrey and Tokuhiro.
 
 Since I B<I<far>> prefer writing programs in I<Raku> than in I<Javascript>, I was excited to try 
 one of the above to move functionality in the new documentation website to Raku.
@@ -51,7 +51,7 @@ The following is an HTML file with a stripped down version of the Javascript-onl
     <meta charset="UTF-8">
     <title>Greet the world</title>
     <script>
-    var dictionary = { "en": { "LangName": "English", "HappyBirthday": "Happy Birthday", "Congratulations": "Congratulations", "HappyHolidays": "Happy holidays" }, "ua": { "LangName": "Українська", "HappyBirthday": "З днем ародження", "Congratulations": "Вітаю", "HappyHolidays": "Зі святами" }, "cy": { "LangName": "Cymraeg", "HappyBirthday": "Pen-blwydd hapus", "Congratulations": "Llongyfarchiadau", "HappyHolidays": "Gwyliau hapus" }, "ja": { "LangName": "日本語", "HappyBirthday": "お誕生日おめでとう", "Congratulations": "おめでとう", "HappyHolidays": "楽しい休日を" }, "nl": { "LangName": "Nederlands", "HappyBirthday": "Gefeliciteerd met je verjaardag", "Congratulations": "Gefeliciteerd", "HappyHolidays": "Fijne feestdagen" }, "epo": { "LangName": "Esperanto", "HappyBirthday": "Feliĉan naskiĝtagon", "Congratulations": "Gratulojn", "HappyHolidays": "Feliĉajn feriojn" } };
+    var dictionary = { "en": { "LangName": "English", "HappyBirthday": "Happy Birthday", "Congratulations": "Congratulations", "HappyHolidays": "Happy holidays" }, "uk": { "LangName": "Українська", "HappyBirthday": "З днем ародження", "Congratulations": "Вітаю", "HappyHolidays": "Зі святами" }, "cy": { "LangName": "Cymraeg", "HappyBirthday": "Pen-blwydd hapus", "Congratulations": "Llongyfarchiadau", "HappyHolidays": "Gwyliau hapus" }, "ja": { "LangName": "日本語", "HappyBirthday": "お誕生日おめでとう", "Congratulations": "おめでとう", "HappyHolidays": "楽しい休日を" }, "nl": { "LangName": "Nederlands", "HappyBirthday": "Gefeliciteerd met je verjaardag", "Congratulations": "Gefeliciteerd", "HappyHolidays": "Fijne feestdagen" }, "epo": { "LangName": "Esperanto", "HappyBirthday": "Feliĉan naskiĝtagon", "Congratulations": "Gratulojn", "HappyHolidays": "Feliĉajn feriojn" } };
     </script>
     <script>
     function setUI( tSpans, newLang ) {
@@ -127,7 +127,7 @@ our %h =
         Congratulations => "Congratulations",
         HappyHolidays => "Happy holidays",
     ),
-    ua => %(
+    uk => %(
         LangName => "Українська",
         HappyBirthday => "З днем ародження",
         Congratulations => "Вітаю",
@@ -221,12 +221,12 @@ Finally the table needs another column for the Raku greetings.
 </table>
 =end numcode
 
-The L<new page| https://htmlpreview.github.io/?https://github.com/finanalyst/Advent2026_Articles/main/greet_2.html>)
+The L<new page| https://htmlpreview.github.io/?https://github.com/finanalyst/Advent2026_Articles/main/greet_2.html>
 
 =head2 Populating DOM elements from within Raku
 
 In order to introspect the DOM of the HTML file, and to modify it, C<raku++> has the C<use js>
-pragma. The pragma creates a new C<JS> object, which can then be treated as I<the gloabal This>.
+pragma. The pragma creates a new C<JS> object, which can then be treated as I<the global This>.
 
 We add the following function to our C<r-functions.raku> file:
 =begin numcode
@@ -234,9 +234,9 @@ use js;
 sub changeLang( $new-lang, $tag-class) is export {
 	my $doc = JS.document;
 	my @targets = $doc.querySelectorAll( $tag-class );
-	for @targets {
-		my $token = .getAttribute('data-UIToken');
-		.innerHTML = %h{ $new-lang}{$token};
+	for @targets -> $elem {
+		my $token = $elem.getAttribute('data-UIToken');
+		$elem.innerHTML = %h{ $new-lang}{$token};
 	}
 }
 =end numcode

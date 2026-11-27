@@ -7,7 +7,7 @@
 <div id="Gifts this year"></div><div id="Gifts_this_year"></div>
 
 ## Gifts this year
-<span class="para" id="b038ae7"></span>Two talented Raku community members \- Andrey Shitov and Tokuhiro Matsuno \- have developed two new Raku compilers using Generative AI tools\. Andrey's [*Raku\+\+*](https://raku.online) compiles to C\+\+ and Tahiro\-san's [*mutsui*](https://tokuhirom.github.io/mutsu/) compiles to Rust\. Since there are now transpilers from C\+\+ and Rust to WASM \(a language that works inside a browser\), both compiler stacks offer a way to write Website functionality in Raku\. I consider both Raku\+\+ and mutsui to be amazing gifts to the Raku community this year, so thank you to both Andrey and Tahiro\-san\.   
+<span class="para" id="de51d3b"></span>Two talented Raku community members \- Andrey Shitov and Tokuhiro Matsuno \- have developed two new Raku compilers using Generative AI tools\. Andrey's [*Raku\+\+*](https://raku.online) is written in C\+\+ and Tokuhiro's [*mutsu*](https://tokuhirom.github.io/mutsu/) is written in Rust\. Both offer ways to write Website functionality in Raku by clever leveraging of WASM\. <a id="I_believe_that_the_original_intent_was_for_Rakudo_to_offer_a_similar_sort_of_backend,_but_development_of_that_initiative_preceeded_the_work_on_WASM,_and_the_run_time_model_for_Rakudo_was_inherently_multi\-threaded,_while_Javascript_in_a_browser_is_robustly_single\-threaded\._No_doubt_this_will_change" href="#fn_target_I_believe_that_the_original_intent_was_for_Rakudo_to_offer_a_similar_sort_of_backend,_but_development_of_that_initiative_preceeded_the_work_on_WASM,_and_the_run_time_model_for_Rakudo_was_inherently_multi\-threaded,_while_Javascript_in_a_browser_is_robustly_single\-threaded\._No_doubt_this_will_change"><sup>[ 1 ]</sup></a> I consider both Raku\+\+ and mutsu to be amazing gifts to the Raku community this year, so thank you to both Andrey and Tokuhiro\.   
 <span class="para" id="a3f5002"></span>Since I ***far*** prefer writing programs in *Raku* than in *Javascript*, I was excited to try one of the above to move functionality in the new documentation website to Raku\.   
 > <span class="para" id="adfb89c"></span>The new website [deployment ](https://dev.docs.raku.org) is still being tested, but both Raku\+\+ and mutsui can be invoked in the website by clicking on the Raku icon on the right\-hand side\.
 
@@ -35,7 +35,7 @@ Code1.
     <meta charset="UTF-8">
     <title>Greet the world</title>
     <script>
-    var dictionary = { "en": { "LangName": "English", "HappyBirthday": "Happy Birthday", "Congratulations": "Congratulations", "HappyHolidays": "Happy holidays" }, "ua": { "LangName": "Українська", "HappyBirthday": "З днем ародження", "Congratulations": "Вітаю", "HappyHolidays": "Зі святами" }, "cy": { "LangName": "Cymraeg", "HappyBirthday": "Pen-blwydd hapus", "Congratulations": "Llongyfarchiadau", "HappyHolidays": "Gwyliau hapus" }, "ja": { "LangName": "日本語", "HappyBirthday": "お誕生日おめでとう", "Congratulations": "おめでとう", "HappyHolidays": "楽しい休日を" }, "nl": { "LangName": "Nederlands", "HappyBirthday": "Gefeliciteerd met je verjaardag", "Congratulations": "Gefeliciteerd", "HappyHolidays": "Fijne feestdagen" }, "epo": { "LangName": "Esperanto", "HappyBirthday": "Feliĉan naskiĝtagon", "Congratulations": "Gratulojn", "HappyHolidays": "Feliĉajn feriojn" } };
+    var dictionary = { "en": { "LangName": "English", "HappyBirthday": "Happy Birthday", "Congratulations": "Congratulations", "HappyHolidays": "Happy holidays" }, "uk": { "LangName": "Українська", "HappyBirthday": "З днем ародження", "Congratulations": "Вітаю", "HappyHolidays": "Зі святами" }, "cy": { "LangName": "Cymraeg", "HappyBirthday": "Pen-blwydd hapus", "Congratulations": "Llongyfarchiadau", "HappyHolidays": "Gwyliau hapus" }, "ja": { "LangName": "日本語", "HappyBirthday": "お誕生日おめでとう", "Congratulations": "おめでとう", "HappyHolidays": "楽しい休日を" }, "nl": { "LangName": "Nederlands", "HappyBirthday": "Gefeliciteerd met je verjaardag", "Congratulations": "Gefeliciteerd", "HappyHolidays": "Fijne feestdagen" }, "epo": { "LangName": "Esperanto", "HappyBirthday": "Feliĉan naskiĝtagon", "Congratulations": "Gratulojn", "HappyHolidays": "Feliĉajn feriojn" } };
     </script>
     <script>
     function setUI( tSpans, newLang ) {
@@ -69,6 +69,7 @@ Code1.
             newLang = event.target.value;
             setUI( token_spans, newLang );
         });
+        // placeholder for Raku link
     });
     </script>
 </head>
@@ -111,7 +112,7 @@ our %h =
         Congratulations => "Congratulations",
         HappyHolidays => "Happy holidays",
     ),
-    ua => %(
+    uk => %(
         LangName => "Українська",
         HappyBirthday => "З днем ародження",
         Congratulations => "Вітаю",
@@ -189,28 +190,43 @@ ruiselector.addEventListener('change', (event) => {
     rSetUI( rtoken_spans, newLang );
 });
 ```
+Finally the table needs another column for the Raku greetings\.  
+
+Code6.
+```
+<table style="border: medium groove black;">
+<tr><td>Greeting language</td><td>Javascript: <select id="Elucid8_ui-switch-contents"></select></td>
+    <td>Raku: <select id="rElucid8_ui-switch-contents"></select></td></tr>
+<tr><td>Greeting 1</td><td>&lt;span class="Elucid8-ui" data-uitoken="HappyBirthday">-</span></td><td>&lt;span class="r-Elucid8-ui" data-uitoken="HappyBirthday">-</span></td></tr>
+<tr><td>Greeting 2</td><td>&lt;span class="Elucid8-ui" data-uitoken="Congratulations">-</span></td><td>&lt;span class="r-Elucid8-ui" data-uitoken="Congratulations">-</span></td>
+</tr>
+<tr><td>Greeting 3</td><td>&lt;span class="Elucid8-ui" data-uitoken="HappyHolidays">-</span></td><td>&lt;span class="r-Elucid8-ui" data-uitoken="HappyHolidays">-</span></td>
+</tr>
+</table>
+```
+<span class="para" id="cdcf82f"></span>The [new page](https://htmlpreview.github.io/?https://github.com/finanalyst/Advent2026_Articles/main/greet_2.html)   
 
 <div id="Populating DOM elements from within Raku"></div><div id="Populating_DOM_elements_from_within_Raku"></div>
 
 ### Populating DOM elements from within Raku
-<span class="para" id="c117c4f"></span>In order to introspect the DOM of the HTML file, and to modify it, `raku++` has the `use js` pragma\. The pragma creates a new `JS` object, which can then be treated as *the gloabal This*\.   
+<span class="para" id="08a7ab0"></span>In order to introspect the DOM of the HTML file, and to modify it, `raku++` has the `use js` pragma\. The pragma creates a new `JS` object, which can then be treated as *the global This*\.   
 <span class="para" id="1b5f8db"></span>We add the following function to our `r-functions.raku` file:   
 
-Code6.
+Code7.
 ```
 use js;
 sub changeLang( $new-lang, $tag-class) is export {
 	my $doc = JS.document;
 	my @targets = $doc.querySelectorAll( $tag-class );
-	for @targets {
-		my $token = .getAttribute('data-UIToken');
-		.innerHTML = %h{ $new-lang}{$token};
+	for @targets -> $elem {
+		my $token = $elem.getAttribute('data-UIToken');
+		$elem.innerHTML = %h{ $new-lang}{$token};
 	}
 }
 ```
 <span class="para" id="a522e5e"></span>Then we replace the snippet in ** with   
 
-Code7.
+Code8.
 ```
 ruiselector = document.getElementById('rElucid8_ui-switch-contents');
 makeUISelector( defLang, ruiselector );
@@ -227,13 +243,18 @@ ruiselector.addEventListener('change', (event) => {
 ### Moving the selector creation to Raku
 Now we take the final step by populating the language selector from the keys of the hash, and attach a listener to the selector all inside a Raku function\.
 
+----
+
+## Footnotes
+1<a id=".<fnTarget>" href="#I_believe_that_the_original_intent_was_for_Rakudo_to_offer_a_similar_sort_of_backend,_but_development_of_that_initiative_preceeded_the_work_on_WASM,_and_the_run_time_model_for_Rakudo_was_inherently_multi\-threaded,_while_Javascript_in_a_browser_is_robustly_single\-threaded\._No_doubt_this_will_change"> |^| </a>I believe that the original intent was for Rakudo to offer a similar sort of backend, but development of that initiative preceeded the work on WASM, and the run time model for Rakudo was inherently multi\-threaded, while Javascript in a browser is robustly single\-threaded\. No doubt this will change
+
 
 
 ----
 
 ----
 
-Rendered from ./Advent_greetings.rakudoc/Advent_greetings at 12:52 UTC on 2026-11-27
+Rendered from ./Advent_greetings.rakudoc/Advent_greetings at 18:52 UTC on 2026-11-27
 
-Source last modified at 12:39 UTC on 2026-11-27
+Source last modified at 18:48 UTC on 2026-11-27
 
