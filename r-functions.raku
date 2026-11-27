@@ -39,3 +39,12 @@ our %h =
 sub rDictionary( $lang, $token ) is export {
     %h{$lang}{$token}
 }
+use js;
+sub changeLang( $new-lang, $tag-class) is export {
+	my $doc = JS.document;
+	my @targets = $doc.querySelectorAll( $tag-class );
+	for @targets {
+		my $token = .getAttribute('data-UIToken');
+		.innerHTML = %h{ $new-lang}{$token};
+	}
+}
