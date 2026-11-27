@@ -5,9 +5,9 @@ our %h =
 			Congratulations => "Congratulations",
 			HappyHolidays => "Happy holidays",
 		),
-		ua => %(
+		uk => %(
 			LangName => "Українська",
-			HappyBirthday => "З днем ародження",
+			HappyBirthday => "З днем народження",
 			Congratulations => "Вітаю",
 			HappyHolidays => "Зі святами",
 		),
@@ -45,7 +45,20 @@ sub changeLang( $new-lang, $tag-class) is export {
 	my @targets = $doc.querySelectorAll( $tag-class ).list;
 	for @targets -> $elem {
 		my $token = $elem.getAttribute('data-UIToken');
-		#my $token = $elem<data-UIToken>;
 		$elem<innerHTML> = %h{$new-lang}{$token};
 	}
+}
+sub setSelector( $selectorElem, $tag-class, $initial ) is export {
+	my $doc = JS.document;
+	my $sel = $doc.getElementById( $selectorElem );
+	my $options = [~] %h.map({
+		'<option value="' ~ .key ~ '"' ~ { .key eq $initial ?? ' selected' !! ''} ~ '>' ~ .value<LangName> ~ '</option>'
+	});
+	$sel<innerHTML> = $options;
+	changeLang( $initial, $tag-class );
+	# set up Event listener on selector
+	$sel.addEventListener('change', -> $el {
+		my $new-language = $el.target.value;
+		changeLang( $new-language, $tag-class );
+	});
 }

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Greet the world</title>
     <script>
-    var dictionary = { "en": { "LangName": "English", "HappyBirthday": "Happy Birthday", "Congratulations": "Congratulations", "HappyHolidays": "Happy holidays" }, "ua": { "LangName": "Українська", "HappyBirthday": "З днем ародження", "Congratulations": "Вітаю", "HappyHolidays": "Зі святами" }, "cy": { "LangName": "Cymraeg", "HappyBirthday": "Pen-blwydd hapus", "Congratulations": "Llongyfarchiadau", "HappyHolidays": "Gwyliau hapus" }, "ja": { "LangName": "日本語", "HappyBirthday": "お誕生日おめでとう", "Congratulations": "おめでとう", "HappyHolidays": "楽しい休日を" }, "nl": { "LangName": "Nederlands", "HappyBirthday": "Gefeliciteerd met je verjaardag", "Congratulations": "Gefeliciteerd", "HappyHolidays": "Fijne feestdagen" }, "epo": { "LangName": "Esperanto", "HappyBirthday": "Feliĉan naskiĝtagon", "Congratulations": "Gratulojn", "HappyHolidays": "Feliĉajn feriojn" } };
+    var dictionary = { "en": { "LangName": "English", "HappyBirthday": "Happy Birthday", "Congratulations": "Congratulations", "HappyHolidays": "Happy holidays" }, "uk": { "LangName": "Українська", "HappyBirthday": "З днем народження", "Congratulations": "Вітаю", "HappyHolidays": "Зі святами" }, "cy": { "LangName": "Cymraeg", "HappyBirthday": "Pen-blwydd hapus", "Congratulations": "Llongyfarchiadau", "HappyHolidays": "Gwyliau hapus" }, "ja": { "LangName": "日本語", "HappyBirthday": "お誕生日おめでとう", "Congratulations": "おめでとう", "HappyHolidays": "楽しい休日を" }, "nl": { "LangName": "Nederlands", "HappyBirthday": "Gefeliciteerd met je verjaardag", "Congratulations": "Gefeliciteerd", "HappyHolidays": "Fijne feestdagen" }, "epo": { "LangName": "Esperanto", "HappyBirthday": "Feliĉan naskiĝtagon", "Congratulations": "Gratulojn", "HappyHolidays": "Feliĉajn feriojn" } };
     </script>
     <script>
     function setUI( tSpans, newLang ) {
@@ -28,14 +28,6 @@
     </script>
     <script src="rFunctions.js"></script>
     <script>
-        function rSetUI( tSpans, newLang ) {
-            tSpans.forEach( function (elem) {
-                token = elem.getAttribute('data-UIToken');
-                elem.innerHTML = rDictionary(newLang,token);
-            });
-        };
-    </script>
-    <script>
     var defLang = 'en';
     var uiselector;
     var token_spans;
@@ -50,13 +42,7 @@
             newLang = event.target.value;
             setUI( token_spans, newLang );
         });
-        ruiselector = document.getElementById('rElucid8_ui-switch-contents');
-		makeUISelector( defLang, ruiselector );
-		changeLang( defLang, '.r-Elucid8-ui');
-        ruiselector.addEventListener('change', (event) => {
-            newLang = event.target.value;
-			changeLang( newLang, '.r-Elucid8-ui');
-        });
+        setSelector('rElucid8_ui-switch-contents','.r-Elucid8-ui', defLang );
     });
     </script>
 </head>

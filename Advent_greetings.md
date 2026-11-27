@@ -224,7 +224,7 @@ sub changeLang( $new-lang, $tag-class) is export {
 	}
 }
 ```
-<span class="para" id="a522e5e"></span>Then we replace the snippet in ** with   
+<span class="para" id="5cbec19"></span>Then we replace the snippet in *<span class="enumeration-T">Code</span><span class="enumeration-N">5</span>* with   
 
 Code8.
 ```
@@ -254,7 +254,7 @@ Now we take the final step by populating the language selector from the keys of 
 
 ----
 
-Rendered from ./Advent_greetings.rakudoc/Advent_greetings at 18:52 UTC on 2026-11-27
+Rendered from ./Advent_greetings.rakudoc/Advent_greetings at 22:00 UTC on 2026-11-27
 
 Source last modified at 18:48 UTC on 2026-11-27
 
