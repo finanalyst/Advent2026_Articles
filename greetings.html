@@ -49,14 +49,19 @@
         uiselector.addEventListener('change', (event) => {
             newLang = event.target.value;
             setUI( token_spans, newLang );
-        });
-        ruiselector = document.getElementById('rElucid8_ui-switch-contents');
-        makeUISelector( defLang, ruiselector );
-        changeLang( defLang, '.r-Elucid8-ui');
-        ruiselector.addEventListener('change', (event) => {
-            newLang = event.target.value;
-			changeLang( newLang, '.r-Elucid8-ui');
-        });
+        });ruiselector = document.getElementById('rElucid8_ui-switch-contents');
+		rtoken_spans = document.querySelectorAll('.r-Elucid8-ui');
+		makeUISelector( defLang, ruiselector );
+		rSetUI( rtoken_spans, defLang );
+		ruiselector.addEventListener('change', (event) => {
+			newLang = event.target.value;
+			rSetUI( rtoken_spans, newLang );
+});
+        //changeLang( defLang, '.r-Elucid8-ui');
+        //ruiselector.addEventListener('change', (event) => {
+        //    newLang = event.target.value;
+		//	changeLang( newLang, '.r-Elucid8-ui');
+        //});
     });
     </script>
 </head>
